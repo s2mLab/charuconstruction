@@ -2,20 +2,15 @@
 requires = [
     "setuptools", 
     "numpy",
-    "ezc3d",
-    "scipy",
-    "lxml",
-    "xarray",
 ]
 build-backend = "setuptools.build_meta"
 
 [project]
-name =  "orthotics_reconstruction"
-description = "A kinematic reconstructions for the multicenter orthotics dataset."
+name =  "charuconstruction"
+description = "A generic interface to generate a virtual buddy"
 dynamic = ["version"]
 authors = [
     {name = "Pariterre", email = "pariterre@hotmail.com"},
-    {name = "mickaelbegon", email = "mickaelbegon@gmail.com"},
 ]
 readme = "README.md"
 classifiers = [
@@ -25,19 +20,31 @@ classifiers = [
 requires-python = ">=3.10"
 dependencies = [
     "numpy", 
-    "ezc3d",
-    "scipy",
-    "lxml",
-    "xarray",
 ]
 
-[project.urls]
-Documentation = "https://github.com/s2mlab/orthotics_reconstruction/tree/main#readme"
-Source = "https://github.com/s2mlab/orthotics_reconstruction"
-Tracker = "https://github.com/s2mlab/orthotics_reconstruction/issues"
+# Any dev dependencies can go here. Also, if a package is not available on pip, it should be referenced here
+[project.optional-dependencies]
+test = ["pytest"]
 
-[tool.setuptools]
-packages = ["orthotics_reconstruction"]
+[project.urls]
+Documentation = "https://github.com/s2mlab/charuconstruction/tree/main#readme"
+Source = "https://github.com/s2mlab/charuconstruction"
+Tracker = "https://github.com/s2mlab/charuconstruction/issues"
+
+# Auto-discover all packages inside the repo root
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["charuconstruction*"]
 
 [tool.setuptools.dynamic]
-version = {attr = "orthotics_reconstruction.__version__"}
+version = {attr = "charuconstruction.version.__version__"}
+
+# Any non *.py files that must be bundled with the package must be listed here. ** and * wildcards can be used
+[tool.setuptools.package-data]
+charuconstruction = [
+    # "subfolder/**/*.extension"
+]
+
+[tool.pytest.ini_options]
+pythonpath = "."
+testpaths = "tests"
